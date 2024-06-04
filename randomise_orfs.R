@@ -9,9 +9,7 @@ nucl<- read.table(args[1], sep="\t", header=F, stringsAsFactors=F)
 nucl
 
 colnames(nucl) <- c("percent_A","percent_C","percent_T","percent_G")
-
-
-###len<- read.table("../assembled_300_lengths.tsv", sep="\t", header=F, stringsAsFactors=F)
+)
 
 len<- read.table(args[2], sep="\t", header=F, stringsAsFactors=F)
 colnames(len)<- c("id", "seq_len")
@@ -28,14 +26,11 @@ random.seqs <- data.frame(id=c(paste0("id_",1:(nrow(len)*10))),
                           )
                           )
 
-#write.table(random.seqs, paste0(args[3], "_random_lengths.tsv"),
-#            col.names=FALSE, row.names=F, quote=F, sep="\t")
-
 ##
 random.sample <- random.seqs[sample(nrow(random.seqs), nrow(random.seqs)/5),]
 
 dim(random.seqs)
 dim(random.sample)
 
-write.table(random.sample, paste0("300bp_random_lengths.tsv"),
+write.table(random.sample, paste0(args[3], "_random_lengths.tsv"),
             col.names=FALSE, row.names=F, quote=F, sep="\t")
