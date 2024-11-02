@@ -37,5 +37,7 @@ An example of the kmer symmetry graphs using the human genome:
 
 For the input, it requires 6 arguments, the FASTA1 file, the output1 id, FASTA2 file, output2 id, the minimum kmer size (integer) and max kmer size.
 
-The output is a jpeg containing four or less sets of kmer plot distribution between the two datasets.  
+The output is a jpeg containing four or less sets of kmer plot distribution between the two datasets. An example below: 
+
+![Scoloplos_kmer_counts(log10)_vs_aligned_kmer_counts(log10)_for_kmr5_to_8](https://github.com/user-attachments/assets/28dfe916-8bb0-4dad-8925-d7f170baff62)
 
