@@ -27,8 +27,15 @@ Syntax example:
 
 The command will complain if one or more of those arguments are not included. 
 Pixel number (the number of rectangles plotted in each side) can only be changed by changing the source code at the  `pix=` part . 
-The ouptput is a jpeg that includes a set of looged symmetry graphs with kmer sizes from 4 to 9. 
+The ouptput is a jpeg that includes a set of logged symmetry graphs with kmer sizes from 4 to 9. 
 
 An example of the kmer symmetry graphs using the human genome: 
 
 ![image](https://user-images.githubusercontent.com/29709382/164441022-577b6810-5f20-4270-a40e-9d4eebd3ff01.png)
+
+**kmer_distr_comparison.R**
+For the input, it requires 6 arguments, the FASTA1 file, the output1 id, FASTA2 file, output2 id, the minimum kmer size (integer) and max kmer size
+This is similar to kmer symmetry but it compares the frequency distribution of kmers between two different sequence datasets. 
+
+The output is a jpeg containing four or less sets of kmer plot distribution between the two datasets.  
+
