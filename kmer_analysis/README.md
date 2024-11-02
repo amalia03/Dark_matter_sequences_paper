@@ -39,5 +39,4 @@ For the input, it requires 6 arguments, the FASTA1 file, the output1 id, FASTA2 
 
 The output is a jpeg containing four or less sets of kmer plot distribution between the two datasets. An example below: 
 
-![Scoloplos_kmer_counts(log10)_vs_aligned_kmer_counts(log10)_for_kmr5_to_8](https://github.com/user-attachments/assets/28dfe916-8bb0-4dad-8925-d7f170baff62)
-
+![CH4_Fig1C-F](https://github.com/user-attachments/assets/ad170be3-8f62-4a42-a213-c17dd9541462)
