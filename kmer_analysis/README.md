@@ -33,9 +33,9 @@ An example of the kmer symmetry graphs using the human genome:
 
 ![image](https://user-images.githubusercontent.com/29709382/164441022-577b6810-5f20-4270-a40e-9d4eebd3ff01.png)
 
-**kmer_distr_comparison.R**
-For the input, it requires 6 arguments, the FASTA1 file, the output1 id, FASTA2 file, output2 id, the minimum kmer size (integer) and max kmer size
-This is similar to kmer symmetry but it compares the frequency distribution of kmers between two different sequence datasets. 
+**kmer_distr_comparison.R** This is similar to kmer symmetry but it compares the frequency distribution of kmers between two different sequence datasets. 
+
+For the input, it requires 6 arguments, the FASTA1 file, the output1 id, FASTA2 file, output2 id, the minimum kmer size (integer) and max kmer size.
 
 The output is a jpeg containing four or less sets of kmer plot distribution between the two datasets.  
 
