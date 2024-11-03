@@ -40,7 +40,6 @@ The genome was downloaded from Ensembl using the command:
 3. The large sequence file is then cut into random segments using the same lengths found in the original merged files.  
 
 `Dark_matter_sequences_paper/orf_section/rando_genome_snipper.sh`
-`./rando_genome_snipper.pl Danio_rerio_cat_chroms.fa ../assembled_300_lengths.tsv > zebrafish_sim_300bp.fa`
 
 4. Finally, OrfPredictor was used through the following script
 
