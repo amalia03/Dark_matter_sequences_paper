@@ -24,31 +24,50 @@ See README.md file in kmer analysis folder.
 ## 3. ORF analysis
 
 For the Open reading frame analysis we created two simulated dataset types to compare the ORFs against our aligned and unaligned reads. Then we used the Orf prefictor program to identify orfs in our sequences and then a cusotm R script to analyse the results. 
+Orfpredictor: Min, X.J., Butler, G., Storms, R. and Tsang, A. OrfPredictor: predicting protein-coding regions in EST-derived sequences. Nucleic Acids Res., 2005
 
 -----
-For simulating reads based on model genomes, we first downloaded genomes from model organisms. The zebrafish (Danio rerio) genome will be used as an example here. 
+For simulating dataset based on model genomes: 
+1. we first downloaded genomes from model organisms. The zebrafish (Danio rerio) genome will be used as an example here. 
 The genome was downloaded from Ensembl using the command:
 
 `Dark_matter_sequences_paper/orf_section/wget_danio.sh`
 
-The genomes were then concatenated together, while also removing all N segments using: 
+2. The genomes were then concatenated together, while also removing all N segments using: 
 
 `Dark_matter_sequences_paper/orf_section/cat_nless_genome.pl`
 
-The large sequence file is then cut into random segments using the same lengths found in the original merged files.  
+3. The large sequence file is then cut into random segments using the same lengths found in the original merged files.  
 
 `Dark_matter_sequences_paper/orf_section/rando_genome_snipper.sh`
 `./rando_genome_snipper.pl Danio_rerio_cat_chroms.fa ../assembled_300_lengths.tsv > zebrafish_sim_300bp.fa`
 
-Finally, OrfPredictor was used through the following script
+4. Finally, OrfPredictor was used through the following script
 
 `perl /home/ama/bin/OrfPredictor/OrfPredictor.pl zebrafish_sim_300bp.fa blank.txt 0 both 1 300b`
 
 ------
 
-For the random simulated reads, we first determined the total nucleotide percent of the merged sequence fasta file using the command: 
+For the simulated dataset based on random reads:
+
+1. Determine the total nucleotide percent of the merged sequence fasta file using the command: 
 
 `Dark_matter_sequences_paper/orf_section/find_nucl_percent.pl`
+
+2. Create random sequences based on the length of the merged sequence files as well as the expected nucleotide proportions provided by the previous step. 
+
+`Dark_matter_sequences_paper/orf_section/find_nucl_percent.pl`
+
+3. Then I used a loop version of the OrfPredictor: 
+
+`Dark_matter_sequences_paper/orf_section/orfpredictor_command.sh`
+
+----
+
+Orf regions for aligned and unaligned sets were found using Orfpredictor, and outputs from the generated genome orfs, the randomised dataset orfs and the aligned and unaligned orfs were anlysed and plotted using:
+
+`Dark_matter_sequences_paper/orf_section/codon_usage.R`
+
 
 
 ## 4. Protein discovery analysis
