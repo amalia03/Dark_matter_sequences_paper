@@ -22,5 +22,14 @@ This last two output files were the ones that were used for the rest of the anal
 See README.md file in kmer analysis folder.
 
 ## 3. ORF analysis
+
+For the Open reading frame analysis we created two simulated dataset types to compare the ORFs against our aligned and unaligned reads. Then we used the Orf prefictor program to identify orfs in our sequences and then a cusotm R script to analyse the results. 
+
+For simulating reads, we first downloaded genomes from model organisms. The zebrafish (Danio rerio) genome will be used as an example here. 
+The genome was downloaded from Ensembl using the command 
+
+`Dark_matter_sequences_paper/orf_section/wget_danio.sh`
+
+
 ## 4. Protein discovery analysis
 
