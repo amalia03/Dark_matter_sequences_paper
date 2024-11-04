@@ -71,3 +71,34 @@ Orf regions for aligned and unaligned sets were found using Orfpredictor, and ou
 
 ## 4. Protein discovery analysis
 
+For this analysis, we prepared 5 datasets in addition to the original BLAST search against the NCBI database, that is: 
+
+1. A BLAST search against the nr database.
+2. A BLASTx search against the Uniprot database
+3. A search using "Infernal" against Rfam to search for non-coding rna sequences.
+4. An Interpro search against the InterPro database
+5. An MG-RAST run
+
+----
+### Interpro datasets preparations 
+
+We first used the ORFs from the previous section, used aligned and unaligned separately. 
+
+1. We split the sequences into files using the command.
+
+`select_orfs_by_frame.pl`
+
+And executing it using the bash command:
+
+`./select_orfs_by_frame.pl all_unaligned_300.fa unaligned_orfs/ORF6frame.txt 0 orf_pos orf_neg 500 > orf_stats.tsv`
+`./select_orfs_by_frame.pl all_aligned_300.fa unaligned_orfs/ORF6frame.txt 0 orf_pos orf_neg 500 > orf_stats.tsv`
+
+where $nuc_file is the FASTA file, $pep_file is the peptide file $min_length is the minimum length,  $pos_odir is the positive strand directory, $neg_odir is the negative strand directory and , $group_size is the number of sequences per file. 
+
+The output creates fasta files that in this case contain 500 fasta sequences from longest to shortest sequences.
+
+2. 
+
+Finally a protein database comparison was then made using the following R script. This script outputs a Upsett plot of db matches as well a grid that shows how much exlusive and shared information each database provides relative to all others
+
+`Dark_matter_sequences_paper/db_comparison/db_comparison_analysis.R`
