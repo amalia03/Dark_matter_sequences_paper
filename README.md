@@ -79,6 +79,18 @@ For this analysis, we prepared 5 datasets in addition to the original BLAST sear
 4. An Interpro search against the InterPro database
 5. An MG-RAST run
 
+-----
+
+### Rfam dataset preparation
+
+1. Downladed the RFAM database.
+2. Run the the cmpress command from Infernal to format the downloaded cm files
+
+`Dark_matter_sequences_paper/db_comparison/cmpress.sh`
+
+3. Run the cmscan command on the cm files.
+
+For the analysis later I only use a tabulated array of all the ids that matched to RFAM. 
 ----
 ### Interpro datasets preparations 
 
@@ -86,7 +98,7 @@ We first used the ORFs from the previous section, used aligned and unaligned sep
 
 1. We split the sequences into files using the command.
 
-`select_orfs_by_frame.pl`
+`Dark_matter_sequences_paper/db_comparison/select_orfs_by_frame.pl`
 
 And executing it using the bash command:
 
@@ -97,8 +109,20 @@ where $nuc_file is the FASTA file, $pep_file is the peptide file $min_length is 
 
 The output creates fasta files that in this case contain 500 fasta sequences from longest to shortest sequences.
 
-2. 
+2. We ran InteProScan v5. (interproscan.sh in bin directory) into the two strand directories using the command:
 
-Finally a protein database comparison was then made using the following R script. This script outputs a Upsett plot of db matches as well a grid that shows how much exlusive and shared information each database provides relative to all others
+`Dark_matter_sequences_paper/db_comparison/run_scans.sh`
+
+Which activates the following command that has been included in the two strand directories (probably there's a simpler way of doing it): 
+
+`Dark_matter_sequences_paper/db_comparison/run_interproscan.sh`
+
+------
+
+A protein database comparison was then made using the following R script. This script outputs a Upsett plot of db matches as well a grid that shows how much exlusive and shared information each database provides relative to all others
 
 `Dark_matter_sequences_paper/db_comparison/db_comparison_analysis.R`
+
+Data analysis and vizualizasions on the InterPro database results were made using the following R script. 
+
+`Dark_matter_sequences_paper/db_comparison/interpro_analysis.R`
