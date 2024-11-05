@@ -64,7 +64,9 @@ For this analysis, we prepared 5 datasets in addition to the original BLAST sear
 3. Run the cmscan command on the cm files.
 
 For the analysis later I only use a tabulated array of all the ids that matched to RFAM. 
+
 ----
+
 ### Interpro datasets preparations 
 
 We first used the ORFs from the previous section, used aligned and unaligned separately. 
