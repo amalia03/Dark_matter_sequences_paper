@@ -91,7 +91,7 @@ A protein database comparison was then made using `db_comparison/db_comparison_a
 
 `db_comparison/db_comparison_analysis.R`
 
-###Interpro Analysis
+### Interpro Analysis
 
 Data analysis and vizualizasions on the InterPro database results were made using the following `db_comparison/interpro_analysis.R` R script. 
 
