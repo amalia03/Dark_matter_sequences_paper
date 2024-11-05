@@ -3,17 +3,10 @@ In this repository you will find scripts that were used for the research paper "
 
 ## 1. Get longest sequences, BLAST locat alignment to NCBI and partition the sequences to mapped and unmapped. 
 
-1. Sequences were merged using PEAR.
-   
-   `Dark_matter_sequences_paper/make_match_unmatch_files/pear_pairs.sh`
-3. Longer merged sequences were kept (>= 300 bp).
-   
-   `Dark_matter_sequences_paper/make_match_unmatch_files/filter_fasta_lengths.R`
-5. Merged sequences were BLASTed against the complete NCBI database using very low thresholds (no pid, evalue e-5).
-6. The total sequences were separated in two FA files, one with sequences that had matches to BLAST and another that had none.
-   
-   `Dark_matter_sequences_paper/make_match_unmatch_files/fetch_unaligned_seqs.pl`
-   `Dark_matter_sequences_paper/make_match_unmatch_files/fetch_aligned_seqs.pl`
+1. Sequences were merged using PEAR (`make_match_unmatch_files/pear_pairs.sh`).
+2. Longer merged sequences were kept (>= 300 bp) (`make_match_unmatch_files/filter_fasta_lengths.R`).
+3. Merged sequences were BLASTed against the complete NCBI database using very low thresholds (no pid, evalue e-5).
+4. The total sequences were separated in two FA files, one with sequences that had matches to BLAST and another that had none(`make_match_unmatch_files/fetch_unaligned_seqs.pl`, `make_match_unmatch_files/fetch_aligned_seqs.pl`)
    
 This last two output files were the ones that were used for the rest of the analysis below. 
 
@@ -29,45 +22,28 @@ Orfpredictor: Min, X.J., Butler, G., Storms, R. and Tsang, A. OrfPredictor: pred
 -----
 For simulating dataset based on model genomes: 
 1. we first downloaded genomes from model organisms. The zebrafish (Danio rerio) genome will be used as an example here. 
-The genome was downloaded from Ensembl using the command:
+The genome was downloaded from Ensembl using the command `orf_section/wget_danio.sh`.
 
-`Dark_matter_sequences_paper/orf_section/wget_danio.sh`
+2. The genomes were then concatenated together, while also removing all N segments using `orf_section/cat_nless_genome.pl`
 
-2. The genomes were then concatenated together, while also removing all N segments using: 
-
-`Dark_matter_sequences_paper/orf_section/cat_nless_genome.pl`
-
-3. The large sequence file is then cut into random segments using the same lengths found in the original merged files.  
-
-`Dark_matter_sequences_paper/orf_section/rando_genome_snipper.sh`
+3. The large sequence file is then cut into random segments using the same lengths found in the original merged files (`orf_section/rando_genome_snipper.sh`). 
 
 4. Finally, OrfPredictor was used through the following script
-
 `perl /home/ama/bin/OrfPredictor/OrfPredictor.pl zebrafish_sim_300bp.fa blank.txt 0 both 1 300b`
 
 ------
 
 For the simulated dataset based on random reads:
 
-1. Determine the total nucleotide percent of the merged sequence fasta file using the command: 
+1. Determine the total nucleotide percent of the merged sequence fasta file using the command `orf_section/find_nucl_percent.pl`:
 
-`Dark_matter_sequences_paper/orf_section/find_nucl_percent.pl`
+2. Create random sequences based on the length of the merged sequence files as well as the expected nucleotide proportions provided by the previous step `orf_section/find_nucl_percent.pl`.
 
-2. Create random sequences based on the length of the merged sequence files as well as the expected nucleotide proportions provided by the previous step. 
-
-`Dark_matter_sequences_paper/orf_section/find_nucl_percent.pl`
-
-3. Then I used a loop version of the OrfPredictor: 
-
-`Dark_matter_sequences_paper/orf_section/orfpredictor_command.sh`
+3. Then I used a loop version of the OrfPredictor `orf_section/orfpredictor_command.sh`.
 
 ----
 
-Orf regions for aligned and unaligned sets were found using Orfpredictor, and outputs from the generated genome orfs, the randomised dataset orfs and the aligned and unaligned orfs were anlysed and plotted using:
-
-`Dark_matter_sequences_paper/orf_section/codon_usage.R`
-
-
+Orf regions for aligned and unaligned sets were found using Orfpredictor, and outputs from the generated genome orfs, the randomised dataset orfs and the aligned and unaligned orfs were anlaysed and plotted using `orf_section/codon_usage.R`.
 
 ## 4. Protein discovery analysis
 
@@ -84,10 +60,7 @@ For this analysis, we prepared 5 datasets in addition to the original BLAST sear
 ### Rfam dataset preparation
 
 1. Downladed the RFAM database.
-2. Run the the cmpress command from Infernal to format the downloaded cm files
-
-`Dark_matter_sequences_paper/db_comparison/cmpress.sh`
-
+2. Run the the cmpress command (`db_comparison/cmpress.sh` ) from Infernal to format the downloaded cm files
 3. Run the cmscan command on the cm files.
 
 For the analysis later I only use a tabulated array of all the ids that matched to RFAM. 
@@ -96,9 +69,7 @@ For the analysis later I only use a tabulated array of all the ids that matched 
 
 We first used the ORFs from the previous section, used aligned and unaligned separately. 
 
-1. We split the sequences into files using the command.
-
-`Dark_matter_sequences_paper/db_comparison/select_orfs_by_frame.pl`
+1. We split the sequences into files using the `/db_comparison/select_orfs_by_frame.pl` command.
 
 And executing it using the bash command:
 
@@ -109,20 +80,24 @@ where $nuc_file is the FASTA file, $pep_file is the peptide file $min_length is 
 
 The output creates fasta files that in this case contain 500 fasta sequences from longest to shortest sequences.
 
-2. We ran InteProScan v5. (interproscan.sh in bin directory) into the two strand directories using the command:
+2. We ran InteProScan v5. (interproscan.sh in bin directory) into the two strand directories using the `db_comparison/run_scans.sh`
+command. 
 
-`Dark_matter_sequences_paper/db_comparison/run_scans.sh`
-
-Which activates the following command that has been included in the two strand directories (probably there's a simpler way of doing it): 
-
-`Dark_matter_sequences_paper/db_comparison/run_interproscan.sh`
+Which activates the `db_comparison/run_interproscan.sh` command that has been included in the two strand directories (probably there's a simpler way of doing it). 
 
 ------
 
-A protein database comparison was then made using the following R script. This script outputs a Upsett plot of db matches as well a grid that shows how much exlusive and shared information each database provides relative to all others
+A protein database comparison was then made using `db_comparison/db_comparison_analysis.R`  script. This script outputs an Upsett plot of db matches as well a grid that shows how much exlusive and shared information each database provides relative to all others
 
-`Dark_matter_sequences_paper/db_comparison/db_comparison_analysis.R`
+`db_comparison/db_comparison_analysis.R`
 
-Data analysis and vizualizasions on the InterPro database results were made using the following R script. 
+###Interpro Analysis
 
-`Dark_matter_sequences_paper/db_comparison/interpro_analysis.R`
+Data analysis and vizualizasions on the InterPro database results were made using the following `db_comparison/interpro_analysis.R` R script. 
+
+Which should be paired with the `db_comparison/pep_functions.R` that contain some major functions uses in the main script. 
+
+This is the most detailed script of the bunch. It is used to generate three major outputs that were used for the paper. 
+The 3 main plots generated are i) two barplots showing alignment results to the InterPro databases, ii) a protein scatterplot indicated the abundance of the different protein groups that aligned within each database and finally ii) an upsett plot indicating the matches between each group. 
+
+It also includes some initial venn diagram plots that I used to compare the results between the databases, and a tabular output of the highest proteins and their descriptions. 
