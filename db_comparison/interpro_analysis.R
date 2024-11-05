@@ -2,10 +2,7 @@
 source("functions_pep.R")
 library(VennDiagram)
 library(RColorBrewer)
-library(ggplot2)
-library(ggrepel)
 library(gridExtra)
-library(eulerr)
 
 ##I usually start with this funciton as it is super useful when working on ESS emacs. 
 set.display <- function(number){
