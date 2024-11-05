@@ -4,20 +4,6 @@ library(VennDiagram)
 library(RColorBrewer)
 library(gridExtra)
 
-##I usually start with this funciton as it is super useful when working on ESS emacs. 
-set.display <- function(number){
-        local.h <- paste0("localhost:", number,".0")
-            Sys.setenv('DISPLAY'=local.h)
-        }
-
-# Program to convert decimal number into binary number using recursive function
-convert.to.binary <- function(n) {
-    if(n > 1) {
-        convert.to.binary(as.integer(n/2))
-    }
-    cat(n %% 2)
-}
-
 #Find file directory and make a variable that distinguishes between types of files. 
 neg.u.f <- list.files("unmapped/orf_neg", full.names=TRUE)
 neg.m.f <- list.files("mapped/orf_neg", full.names=TRUE)
